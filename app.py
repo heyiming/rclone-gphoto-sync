@@ -44,6 +44,9 @@ def main():
     
     for year in years:
         year_path = top + '/' + year.get("Path")
+        if rc.ls(year_path).get('out') == b'':
+            logger.debug(f"Skipping {year_path}")
+            continue
         months = json.loads(rc.lsjson(year_path, flags=["--dirs-only"]).get('out'))
         for month in months:
             month_path = year_path + '/' + month.get("Path")
